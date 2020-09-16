@@ -121,6 +121,63 @@ private:
     sf::RenderWindow& m_window;
 };
 
+class CrusadeAgainstFaithless: public Action
+{
+public:
+    CrusadeAgainstFaithless(  sf::RenderWindow& window, 
+                std::map<std::string, Faction> faction_map):    m_factions(faction_map),
+                                                                m_window(window)
+    {}
+    ~CrusadeAgainstFaithless(){}
+    bool operator()(sf::Keyboard::Key key);
+private:
+    std::map<std::string, Faction> m_factions;
+    sf::RenderWindow& m_window;
+};
+
+class InvadeNeighbour: public Action
+{
+public:
+    InvadeNeighbour(  sf::RenderWindow& window, 
+                std::map<std::string, Faction> faction_map):    m_factions(faction_map),
+                                                                m_window(window)
+    {}
+    ~InvadeNeighbour(){}
+    bool operator()(sf::Keyboard::Key key);
+private:
+    std::map<std::string, Faction> m_factions;
+    sf::RenderWindow& m_window;
+};
+
+class TradeWithNation: public Action
+{
+public:
+    TradeWithNation(  sf::RenderWindow& window, 
+                std::map<std::string, Faction> faction_map):    m_factions(faction_map),
+                                                                m_window(window)
+    {}
+    ~TradeWithNation(){}
+    bool operator()(sf::Keyboard::Key key);
+private:
+    std::map<std::string, Faction> m_factions;
+    sf::RenderWindow& m_window;
+};
+
+class HoldFestival: public Action
+{
+public:
+    HoldFestival(  sf::RenderWindow& window, 
+                std::map<std::string, Faction> faction_map):    m_factions(faction_map),
+                                                                m_window(window)
+    {}
+    ~HoldFestival(){}
+    bool operator()(sf::Keyboard::Key key);
+private:
+    std::map<std::string, Faction> m_factions;
+    sf::RenderWindow& m_window;
+};
+
+
 /*****FUNCTORS*****/
 
 /******INTERNAL FUNCTION DECLARATION******/
@@ -135,10 +192,10 @@ bool FundLawEnforcement::operator()(sf::Keyboard::Key key)
             alter = 1;
             break;
         case sf::Keyboard::Key::D:
-            alter = -1;
+            alter = -2;
             break;
         case sf::Keyboard::Key::N:
-            alter = 0;
+            alter = -1;
             break;
         default:
             return 0;
@@ -150,9 +207,9 @@ bool FundLawEnforcement::operator()(sf::Keyboard::Key key)
     m_factions.find("Military")->second.IncreaseAttitudeLevel(alter);
     m_factions.find("Military")->second.IncreaseInfluenceLevel(alter);
 
-    m_factions.find("General Public")->second.DecreaseAttitudeLevel(alter);
+    m_factions.find("General Public")->second.DecreaseAttitudeLevel(alter+1);
 
-    m_factions.find("Treasury")->second.DecreaseAttitudeLevel(alter);
+    m_factions.find("Treasury")->second.DecreaseAttitudeLevel(alter+1);
 
     return 1;
 }
@@ -167,10 +224,10 @@ bool OpenNewDryDock::operator()(sf::Keyboard::Key key)
             alter = 1;
             break;
         case sf::Keyboard::Key::C:
-            alter = -1;
+            alter = -2;
             break;
         case sf::Keyboard::Key::N:
-            alter = 0;
+            alter = -1;
             break;
         default:
             return 0;
@@ -182,8 +239,8 @@ bool OpenNewDryDock::operator()(sf::Keyboard::Key key)
     m_factions.find("Merchant Guild")->second.IncreaseAttitudeLevel(alter);
     m_factions.find("Merchant Guild")->second.IncreaseInfluenceLevel(alter);
 
-    m_factions.find("Farmers")->second.DecreaseAttitudeLevel(alter);
-    m_factions.find("Farmers")->second.DecreaseInfluenceLevel(alter);
+    m_factions.find("Farmers")->second.DecreaseAttitudeLevel(alter+1);
+    m_factions.find("Farmers")->second.DecreaseInfluenceLevel(alter+1);
 
     return 1;
 }
@@ -198,10 +255,10 @@ bool ExpandFishing::operator()(sf::Keyboard::Key key)
             alter = 1;
             break;
         case sf::Keyboard::Key::D:
-            alter = -1;
+            alter = -2;
             break;
         case sf::Keyboard::Key::N:
-            alter = 0;
+            alter = -1;
             break;
         default:
             return 0;
@@ -217,8 +274,8 @@ bool ExpandFishing::operator()(sf::Keyboard::Key key)
 
     m_factions.find("General Public")->second.IncreaseAttitudeLevel(alter);
 
-    m_factions.find("Farmers")->second.DecreaseAttitudeLevel(alter);
-    m_factions.find("Farmers")->second.DecreaseInfluenceLevel(alter);
+    m_factions.find("Farmers")->second.DecreaseAttitudeLevel(alter+1);
+    m_factions.find("Farmers")->second.DecreaseInfluenceLevel(alter+1);
 
     return 1;
 }
@@ -245,6 +302,8 @@ bool NewReligionArrives::operator()(sf::Keyboard::Key key)
     m_factions.find("Church")->second.IncreaseAttitudeLevel(alter);
     m_factions.find("Church")->second.IncreaseInfluenceLevel(alter);
 
+    m_factions.find("Merchant Guild")->second.DecreaseAttitudeLevel(alter);
+
     return 1;
 }
 
@@ -254,12 +313,23 @@ bool FundingMilitary::operator()(sf::Keyboard::Key key)
 
     switch(key)
     {
-        case sf::Keyboard::Key::Return:
+        case sf::Keyboard::Key::F:
+            alter = 1;
+            break;
+        case sf::Keyboard::Key::D:
+            alter = -2;
+            break;
+        case sf::Keyboard::Key::N:
+            alter = -1;
             break;
         default:
             return 0;
     }
 
+    m_factions.find("Military")->second.IncreaseAttitudeLevel(alter);
+    m_factions.find("Military")->second.IncreaseInfluenceLevel(alter);
+
+    m_factions.find("Treasury")->second.DecreaseAttitudeLevel(alter+1);
     return 1;
 }
 
@@ -269,11 +339,26 @@ bool IncreaseTaxes::operator()(sf::Keyboard::Key key)
 
     switch(key)
     {
-        case sf::Keyboard::Key::Return:
+        case sf::Keyboard::Key::I:
+            alter = 1;
+            break;
+        case sf::Keyboard::Key::D:
+            alter = -2;
+            break;
+        case sf::Keyboard::Key::N:
+            alter = -1;
             break;
         default:
             return 0;
     }
+
+    m_factions.find("Treasury")->second.IncreaseAttitudeLevel(alter);
+    m_factions.find("Treasury")->second.IncreaseInfluenceLevel(alter);
+
+    m_factions.find("General Public")->second.DecreaseAttitudeLevel(alter+1);
+    
+    m_factions.find("Merchant Guild")->second.DecreaseAttitudeLevel(alter+1);
+    m_factions.find("Merchant Guild")->second.DecreaseInfluenceLevel(alter+1);
 
     return 1;
 }
@@ -284,12 +369,158 @@ bool ClearLand::operator()(sf::Keyboard::Key key)
 
     switch(key)
     {
-        case sf::Keyboard::Key::Return:
+        case sf::Keyboard::Key::C:
+            alter = 1;
+            break;
+        case sf::Keyboard::Key::D:
+            alter = -2;
+            break;
+        case sf::Keyboard::Key::N:
+            alter = -1;
             break;
         default:
             return 0;
     }
- 
+    m_factions.find("Farmers")->second.IncreaseAttitudeLevel(alter);
+    m_factions.find("Farmers")->second.IncreaseInfluenceLevel(alter);
+
+    m_factions.find("Merchant Guild")->second.IncreaseAttitudeLevel(alter);
+    m_factions.find("Merchant Guild")->second.IncreaseInfluenceLevel(alter);
+
+    m_factions.find("General Public")->second.IncreaseAttitudeLevel(alter);
+
+    m_factions.find("Fisheries")->second.DecreaseAttitudeLevel(alter+1);
+    m_factions.find("Fisheries")->second.DecreaseInfluenceLevel(alter+1);
+
+    return 1;
+}
+
+bool CrusadeAgainstFaithless::operator()(sf::Keyboard::Key key)
+{
+    int alter = 0;
+
+    switch(key)
+    {
+        case sf::Keyboard::Key::C:
+            alter = 1;
+            break;
+        case sf::Keyboard::Key::N:
+            alter = -1;
+            break;
+        default:
+            return 0;
+    }
+    m_factions.find("Church")->second.IncreaseAttitudeLevel(alter);
+    m_factions.find("Church")->second.IncreaseInfluenceLevel(alter);
+
+    m_factions.find("Military")->second.IncreaseAttitudeLevel(alter);
+    m_factions.find("Military")->second.IncreaseInfluenceLevel(alter);
+
+    m_factions.find("General Public")->second.IncreaseAttitudeLevel(alter);
+
+    return 1;
+}
+
+bool InvadeNeighbour::operator()(sf::Keyboard::Key key)
+{
+    int alter = 0;
+
+    switch(key)
+    {
+        case sf::Keyboard::Key::I:
+            alter = 1;
+            break;
+        case sf::Keyboard::Key::N:
+            alter = -1;
+            break;
+        default:
+            return 0;
+    }
+    m_factions.find("Church")->second.DecreaseAttitudeLevel(alter);
+    m_factions.find("Church")->second.DecreaseInfluenceLevel(alter);
+
+    m_factions.find("Military")->second.IncreaseAttitudeLevel(alter);
+    m_factions.find("Military")->second.IncreaseInfluenceLevel(alter);
+
+    m_factions.find("General Public")->second.IncreaseAttitudeLevel(alter);
+
+    return 1;
+}
+
+bool TradeWithNation::operator()(sf::Keyboard::Key key)
+{
+    int alter = 0;
+
+    switch(key)
+    {
+        case sf::Keyboard::Key::O:
+            alter = 1;
+            break;
+        case sf::Keyboard::Key::C:
+            alter = -2;
+            break;
+        case sf::Keyboard::Key::N:
+            alter = -1;
+            break;
+        default:
+            return 0;
+    }
+    m_factions.find("Farmers")->second.IncreaseAttitudeLevel(alter);
+    m_factions.find("Farmers")->second.IncreaseInfluenceLevel(alter);
+
+    m_factions.find("Fisheries")->second.IncreaseAttitudeLevel(alter);
+    m_factions.find("Fisheries")->second.IncreaseInfluenceLevel(alter);
+
+    m_factions.find("Merchant Guild")->second.IncreaseAttitudeLevel(alter);
+    m_factions.find("Merchant Guild")->second.IncreaseInfluenceLevel(alter);
+
+    m_factions.find("Treasury")->second.IncreaseAttitudeLevel(alter);
+    m_factions.find("Treasury")->second.IncreaseInfluenceLevel(alter);
+
+    m_factions.find("General Public")->second.IncreaseAttitudeLevel(alter);
+
+    m_factions.find("Military")->second.DecreaseAttitudeLevel(alter+1);
+    m_factions.find("Military")->second.DecreaseInfluenceLevel(alter+1);
+
+    return 1;
+}
+
+bool HoldFestival::operator()(sf::Keyboard::Key key)
+{
+    int alter = 0;
+
+    switch(key)
+    {
+        case sf::Keyboard::Key::H:
+            alter = 1;
+            break;
+        case sf::Keyboard::Key::N:
+            alter = -1;
+            break;
+        default:
+            return 0;
+    }
+    
+    m_factions.find("Farmers")->second.IncreaseAttitudeLevel(alter);
+    m_factions.find("Farmers")->second.IncreaseInfluenceLevel(alter);
+
+    m_factions.find("Fisheries")->second.IncreaseAttitudeLevel(alter);
+    m_factions.find("Fisheries")->second.IncreaseInfluenceLevel(alter);
+
+    m_factions.find("Merchant Guild")->second.IncreaseAttitudeLevel(alter);
+    m_factions.find("Merchant Guild")->second.IncreaseInfluenceLevel(alter);
+
+    m_factions.find("Miltary")->second.IncreaseAttitudeLevel(alter);
+    m_factions.find("Military")->second.IncreaseInfluenceLevel(alter);
+
+    m_factions.find("General Public")->second.IncreaseAttitudeLevel(alter);
+
+    m_factions.find("Treasury")->second.DecreaseAttitudeLevel(alter+1);
+    m_factions.find("Treasury")->second.DecreaseInfluenceLevel(alter+1);
+
+    m_factions.find("Law Enforcement")->second.DecreaseAttitudeLevel(alter+1);
+    m_factions.find("Law Enforcement")->second.DecreaseInfluenceLevel(alter+1);
+
     return 1;
 }
 
@@ -328,4 +559,24 @@ the_prince::Action* the_prince::BuildInT(ActParams params)
 the_prince::Action* the_prince::BuildCLn(ActParams params)
 {
     return new ClearLand(params.window, params.faction_map);
+}
+
+the_prince::Action* the_prince::BuildCAF(ActParams params)
+{
+    return new CrusadeAgainstFaithless(params.window, params.faction_map);
+}
+
+the_prince::Action* the_prince::BuildINT(ActParams params)
+{
+    return new InvadeNeighbour(params.window, params.faction_map);
+}
+
+the_prince::Action* the_prince::BuildTNN(ActParams params)
+{
+    return new TradeWithNation(params.window, params.faction_map);
+}
+
+the_prince::Action* the_prince::BuildHdF(ActParams params)
+{
+    return new HoldFestival(params.window, params.faction_map);
 }

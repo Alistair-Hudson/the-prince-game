@@ -55,13 +55,25 @@ int the_prince::ActionInitiliser(Factory<ActParams>&  factory, TextHandler& text
     text_map.AddText("Lord, a group claiming to be the chosen have entered the city, and are requesting we allow them in\nWhat shall we do?\nType A = Allow them in, D = Allow in and adopt their faith or T = Turn them away\n", font);
     //Add Fund Military
     factory.AddAction(++actions_added, BuildFdM);
-    text_map.AddText("", font);
+    text_map.AddText("Lord, The military is short on funds.\nIf you were to allocate us more funds we could better defend the city.\n What shall we do\nF = Fund, D = Defund or N = Do Nothing\n", font);
     //Add Increase Taxes
     factory.AddAction(++actions_added, BuildInT);
-    text_map.AddText("", font);
+    text_map.AddText("Lord, our coffers are looking a bit bare.\nI suggest we increase taxes to generate more revenue.\nWhat shall we do?\nI = Increase Taxes, D = Decrease Taxes or N = Do Nothing", font);
     //Add Clear Land
     factory.AddAction(++actions_added, BuildCLn);
-    text_map.AddText("", font);
+    text_map.AddText("Lord, I suggeest we clear some more land so we may expand our farming.\nWhat shall we do?.\nC = Clear Land, D= Close Down Farms or N =Do Nothing.\n", font);
+    //Add Crusade
+    factory.AddAction(++actions_added, BuildCAF);
+    text_map.AddText("Lord, we have been called to defend the Faith against the heathens\nWhat shall we do?\nC = Embark on a Crusade or N = Do Nothing", font);
+    //Add Invade
+    factory.AddAction(++actions_added, BuildINT);
+    text_map.AddText("Lord, we should expand our domain.\nDoing so we could increase our resources and our influence.\nWhat shall we do?\nI = Invade Neighbouring territory or N = Do nothing", font);
+    //Add Trade
+    factory.AddAction(++actions_added, BuildTNN);
+    text_map.AddText("Lord, I suggest we open a new trade route.\nWhat shall we do?\nO = Open new trade rout, C = Close a trade route or N = Do nothing.", font);
+    //Add Festival
+    factory.AddAction(++actions_added, BuildHdF);
+    text_map.AddText("Lord, I suggest we hold a festival to boost everyone's morale.\nH = Hold festival or N = Do nothing.", font);
 
     return actions_added;
 }

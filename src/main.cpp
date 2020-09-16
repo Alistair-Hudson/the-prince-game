@@ -46,8 +46,6 @@ int main()
     display.rebelion = 0;
     display.months_remaining = MONTHS;
 
-
-
     int total_actions = ActionInitiliser(action_factory, display.texts);
     CreateFactionMap(faction_map);
 

@@ -40,5 +40,6 @@ void the_prince::CreateFactionMap(std::map<std::string, Faction>& map)
     map.insert({"Farmers", Faction("Farmers")});
     map.insert({"Fisheries", Faction("Fisheries")});
     
-
+    //General Public has an influence level of 100 at all times
+    map.find("General Public")->second.IncreaseInfluenceLevel(100);
 }
