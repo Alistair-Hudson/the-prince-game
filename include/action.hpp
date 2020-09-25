@@ -48,6 +48,7 @@ Action* BuildCAF(ActParams params);
 Action* BuildINT(ActParams params);
 Action* BuildTNN(ActParams params);
 Action* BuildHdF(ActParams params);
+Action* BuildNoReq(ActParams params);
 
 
 } // namespace the_prince

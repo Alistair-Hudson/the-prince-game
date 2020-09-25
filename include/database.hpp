@@ -16,6 +16,8 @@
 #include "action_factory.hpp"
 #include "animation.hpp"
 
+#define TEXT_BOX_X  (0)
+#define TEXT_BOX_Y  (800)
 
 namespace the_prince
 {
@@ -33,10 +35,11 @@ public:
         sf::Text* text = new sf::Text;
         sf::Font* font = new sf::Font;
         font->loadFromFile(font_file);
+        text->setPosition(sf::Vector2f(TEXT_BOX_X, TEXT_BOX_Y));
         text->setString(string);
         text->setFont(*font);
         text->setCharacterSize(24);
-        text->setFillColor(sf::Color::White);
+        text->setFillColor(sf::Color::Black);
         m_texts.push_back(text);
     }
 

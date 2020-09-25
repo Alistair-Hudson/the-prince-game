@@ -10,7 +10,7 @@ using namespace the_prince;
 
 /******MACROS******/
 #define MAX_ATTITUDE   (100)
-#define MAX_INFLUENCE   (100)
+#define MAX_INFLUENCE  (100)
 
 /******TYPEDEFS*****/
 

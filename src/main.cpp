@@ -1,3 +1,9 @@
+/******************************************************************************
+ *	Title:		Main
+ *	Authour:	Alistair Hudson
+ *	Reviewer:	
+ *	Version:	30.08.2020.0
+ ******************************************************************************/
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
@@ -7,15 +13,21 @@
 
 #include "database.hpp"
 
+/******MACROS******/
 #define YEARS   (30)
 #define MONTHS  (12*YEARS)
 
+/******TYPEDEFS*****/
+
+/****** GLOBAL VARIABLES*****/
+
+/*****STRUCTS*******/
 struct DisplayParams
 {
     sf::RenderWindow* window;
     the_prince::SpriteHandler sprites;
     the_prince::TextHandler texts;
-    sf::Text game_over;
+    sf::Text non_playable_screen;
     sf::Font font;
     int action;
     int months_remaining;
@@ -24,8 +36,16 @@ struct DisplayParams
 
 };
 
-void Display(DisplayParams display);
+/*****CLASSES******/
 
+/*****FUNCTORS*****/
+
+/******INTERNAL FUNCTION DECLARATION******/ 
+static void Display(DisplayParams display);
+
+/******CLASS METHODS*******/
+
+/*****FUNCTION DEFINITION******/
 void Foo(the_prince::SpriteHandler& v)
 {
     v.AddSprite("./textures/pikachu.png");
@@ -46,14 +66,15 @@ int main()
     display.rebelion = 0;
     display.months_remaining = MONTHS;
 
-    int total_actions = ActionInitiliser(action_factory, display.texts);
+    int total_actions = ActionInitiliser(action_factory, display.texts)-1;
     CreateFactionMap(faction_map);
 
     display.font.loadFromFile("/usr/share/fonts/truetype/dejavu/DejaVuMathTeXGyre.ttf");
-    display.game_over.setString("GAME OVER");
-    display.game_over.setFont(display.font);
-    display.game_over.setCharacterSize(24);
-    display.game_over.setFillColor(sf::Color::White);
+    display.non_playable_screen.setString("Press Any Key to Continue");
+    display.non_playable_screen.setFont(display.font);
+    display.non_playable_screen.setCharacterSize(24);
+    display.non_playable_screen.setFillColor(sf::Color::White);
+    display.non_playable_screen.setPosition(sf::Vector2f(300, 500));
 
     the_prince::ActParams params = {faction_map, window};
 
@@ -85,7 +106,7 @@ int main()
                                 display.rebelion |= iter->second.Rebelion();
                                 iter = next(iter);
                             }
-                            --display.months_remaining;
+                            display.months_remaining -= 3;
                         }
                     }
                     break;
@@ -99,21 +120,30 @@ int main()
     return 0;
 }
 
-void Display(DisplayParams display)
+static void Display(DisplayParams display)
 {
         display.window->clear();
-        if (display.rebelion)
+        if (display.title_screen) 
         {
-            display.window->draw(display.game_over);
+            display.window->draw(display.non_playable_screen);
+        }
+        else if (display.rebelion)
+        {
+            display.non_playable_screen.setString("A rebelion has been incited and you have been over thrown\nGAME OVER");
+            display.window->draw(display.non_playable_screen);
         }
         else if (0 >= display.months_remaining)
         {
-            display.game_over.setString("You have lived a good life\nYour heir has succeed you");
-            display.window->draw(display.game_over);
+            display.non_playable_screen.setString("You have lived a good life\nYour heir has succeed you");
+            display.window->draw(display.non_playable_screen);
         }
         else
         {   
+            sf::RectangleShape text_box(sf::Vector2f(1000, 200));
+            text_box.setFillColor(sf::Color::White);
+            text_box.setPosition(sf::Vector2f(TEXT_BOX_X, TEXT_BOX_Y));
             //window.draw(sprites[action]);
+            display.window->draw(text_box);
             display.window->draw(display.texts[display.action]);
         }
         display.window->display();

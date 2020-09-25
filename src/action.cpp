@@ -177,6 +177,22 @@ private:
     sf::RenderWindow& m_window;
 };
 
+class NoRequests: public Action
+{
+public:
+    NoRequests( sf::RenderWindow& window,
+                std::map<std::string, Faction> faction_map): m_factions(faction_map),
+                                                            m_window(window)
+    {}
+    ~NoRequests(){}
+    bool operator()(sf::Keyboard::Key key)
+    {
+        return 1;
+    }
+private:
+    std::map<std::string, Faction> m_factions;
+    sf::RenderWindow& m_window;
+};
 
 /*****FUNCTORS*****/
 
@@ -579,4 +595,9 @@ the_prince::Action* the_prince::BuildTNN(ActParams params)
 the_prince::Action* the_prince::BuildHdF(ActParams params)
 {
     return new HoldFestival(params.window, params.faction_map);
+}
+
+the_prince::Action* the_prince::BuildNoReq(ActParams params)
+{
+    return new NoRequests(params.window, params.faction_map);
 }

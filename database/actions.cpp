@@ -74,6 +74,10 @@ int the_prince::ActionInitiliser(Factory<ActParams>&  factory, TextHandler& text
     //Add Festival
     factory.AddAction(++actions_added, BuildHdF);
     text_map.AddText("Lord, I suggest we hold a festival to boost everyone's morale.\nH = Hold festival or N = Do nothing.", font);
+    
+    //Add a period of no requests
+    factory.AddAction(++actions_added, BuildNoReq);
+    text_map.AddText("It is a quiet three months of no request.\nPress any key to continue", font);
 
     return actions_added;
 }
