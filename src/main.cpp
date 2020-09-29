@@ -58,7 +58,7 @@ int main()
     sf::RenderWindow window(sf::VideoMode(1000, 1000), "The Prince");
     the_prince::Factory<the_prince::ActParams > action_factory;
     the_prince::SpriteHandler sprites;
-    std::map<std::string, the_prince::Faction> faction_map;
+    std::map<the_prince::FACTION, the_prince::Faction> faction_map;
 
     display.window = &window;
     display.action = 0;
@@ -100,12 +100,13 @@ int main()
                         if((*action_factory.CreateAction(display.action, params))(event.key.code))
                         {
                             display.action = (rand()%total_actions) +1;
-                            std::map<std::string, the_prince::Faction>::iterator iter = faction_map.begin();
+                            std::map<the_prince::FACTION, the_prince::Faction>::iterator iter = faction_map.begin();
                             while (iter != faction_map.end())
                             {
                                 display.rebelion |= iter->second.Rebelion();
                                 iter = next(iter);
                             }
+                            std::cout << display.action << std::endl;
                             display.months_remaining -= 3;
                         }
                     }

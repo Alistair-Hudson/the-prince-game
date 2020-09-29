@@ -40,6 +40,7 @@ int the_prince::ActionInitiliser(Factory<ActParams>&  factory, TextHandler& text
 
     int actions_added = 0;
 
+    factory.AddAction(actions_added, BuildNoReq);
     text_map.AddText("This has been intentially left blank", font);
     //Add Fund Law Enforcement
     factory.AddAction(++actions_added, BuildFLE);

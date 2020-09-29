@@ -19,7 +19,7 @@ namespace the_prince
 
 struct ActParams
 {
-    std::map<std::string, Faction>& faction_map;
+    std::map<FACTION, Faction>& faction_map;
     sf::RenderWindow& window;
 };
 

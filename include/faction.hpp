@@ -11,6 +11,21 @@
 
 namespace the_prince
 {
+enum FACTION
+{
+    NOFACTION = 0,
+    PUBLIC,
+    MILITARY,
+    LAWENFORCEMENT,
+    TREASURY,
+    CHURCH,
+    FISHERIES,
+    FARMERS,
+    MERCHANTS,
+    ALCHEMISTS,
+    SHIPWRIGHTS
+};
+
 class Faction
 {
 public:

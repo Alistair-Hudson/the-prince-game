@@ -68,10 +68,10 @@ public:
 };
 
 int ActionInitiliser(Factory<ActParams>& factory, TextHandler& text_map);
-void CreateFactionMap(std::map<std::string, Faction>& map);
+void CreateFactionMap(std::map<FACTION, Faction>& map);
 // void CreateTextureMap(std::map<std::string, sf::Texture>& map);
-void CreateSpriteMap(   std::map<std::string, sf::Sprite>& sprite_map, 
-                        std::map<std::string, sf::Texture>& texture_map);
+void CreateSpriteMap(   std::map<FACTION, sf::Sprite>& sprite_map, 
+                        std::map<FACTION, sf::Texture>& texture_map);
 
 
 } // namespace the_prince

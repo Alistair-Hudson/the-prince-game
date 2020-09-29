@@ -27,19 +27,19 @@
 /******CLASS METHODS*******/
 
 /*****FUNCTION DEFINITION******/
-void the_prince::CreateFactionMap(std::map<std::string, Faction>& map)
+void the_prince::CreateFactionMap(std::map<the_prince::FACTION, Faction>& map)
 {
-    map.insert({"Military", Faction("Military")});
-    map.insert({"Law Enforcement", Faction("Law Enforcement")});
-    map.insert({"General Public", Faction("General Public")});
-    map.insert({"Treasury", Faction("Treasury")});
-    map.insert({"Church", Faction("Church")});
-    map.insert({"Merchant Guild", Faction("Merchant Guild")});
-    map.insert({"Alchemist Guild", Faction("Alchemist Guild")});
-    map.insert({"Ship Wrights", Faction("Ship Wrights")});
-    map.insert({"Farmers", Faction("Farmers")});
-    map.insert({"Fisheries", Faction("Fisheries")});
+    map.insert({MILITARY, Faction("Military")});
+    map.insert({LAWENFORCEMENT, Faction("Law Enforcement")});
+    map.insert({PUBLIC, Faction("General Public")});
+    map.insert({TREASURY, Faction("Treasury")});
+    map.insert({CHURCH, Faction("Church")});
+    map.insert({MERCHANTS, Faction("Merchant Guild")});
+    map.insert({ALCHEMISTS, Faction("Alchemist Guild")});
+    map.insert({SHIPWRIGHTS, Faction("Ship Wrights")});
+    map.insert({FARMERS, Faction("Farmers")});
+    map.insert({FISHERIES, Faction("Fisheries")});
     
     //General Public has an influence level of 100 at all times
-    map.find("General Public")->second.IncreaseInfluenceLevel(100);
+    map.find(PUBLIC)->second.IncreaseInfluenceLevel(100);
 }
