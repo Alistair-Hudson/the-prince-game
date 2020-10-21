@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7502682a574e95844b99391da4395923, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turnsRemaining: 63
   factions:
   - {fileID: 7897252485205138532, guid: 1fd031c4b9faec74eac47515c4a253c9, type: 3}
   - {fileID: 7897252485205138532, guid: 38d4b3d84302ab746b8b062b877ee5fd, type: 3}
@@ -630,6 +631,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1194412634440149483}
     m_Modifications:
+    - target: {fileID: 7897252485205138532, guid: d0fcc531fdab07d4fa5d9d0b23c30051, type: 3}
+      propertyPath: m_influence
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 7897252485205138533, guid: d0fcc531fdab07d4fa5d9d0b23c30051, type: 3}
       propertyPath: m_Name
       value: Public

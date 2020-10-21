@@ -6,7 +6,7 @@ public class Faction : MonoBehaviour
 {
     //Variables
     float m_attitude = 0;
-    float m_influence = 0;
+    [SerializeField] float m_influence = 0;
 
     //Constants
     float MAX_ATTITUDE = 100;

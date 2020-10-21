@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FactionHandler : MonoBehaviour
 {
+    [SerializeField] int turnsRemaining = 63;
     [SerializeField] List<Faction> factions;
 
 
@@ -19,15 +20,16 @@ public class FactionHandler : MonoBehaviour
         }
     }
 
-    public void CheckForRebelion()
+    public bool CheckForRebelion()
     {
         foreach (Faction faction in factions)
         {
             if (faction.Rebelion())
             {
-                FindObjectOfType<SceneLoader>().LoadRebelion();
+                return true;
             }
         }
+        return false;
     }
 
     public void PositiveOption(string factionTag)
@@ -63,7 +65,15 @@ public class FactionHandler : MonoBehaviour
         }
     }
 
+    public void DecreaseTurns()
+    {
+        --turnsRemaining;
+    }
 
+    public int GetTurnsRemaining()
+    {
+        return turnsRemaining;
+    }
 
     // Start is called before the first frame update
     void Start()

@@ -325,10 +325,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Your time as ruler has passed.
+  m_Text: 'A rebelion has occurred.
 
-    Let us hope your heir can perform
-    as admirably as you have.'
+    Your regin is over, let us pray you won''t
+    be executed.'
 --- !u!222 &191815748
 CanvasRenderer:
   m_ObjectHideFlags: 0

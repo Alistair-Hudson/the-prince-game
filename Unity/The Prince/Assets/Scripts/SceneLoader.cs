@@ -9,6 +9,19 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadAnotherScene()
     {
+        if(FindObjectOfType<FactionHandler>().CheckForRebelion())
+        {
+            LoadRebelion();
+            return;
+        }
+
+        FindObjectOfType<FactionHandler>().DecreaseTurns();
+        if (0 >= FindObjectOfType<FactionHandler>().GetTurnsRemaining())
+        {
+            LoadVictory();
+            return;
+        }
+
         int index = Mathf.RoundToInt(Random.Range(numNonPlayable, SceneManager.sceneCountInBuildSettings));
         SceneManager.LoadScene(index);
     }
@@ -16,11 +29,13 @@ public class SceneLoader : MonoBehaviour
     public void LoadRebelion()
     {
         SceneManager.LoadScene("Rebelion");
+        Destroy(FindObjectOfType<FactionHandler>());
     }
 
     public void LoadVictory()
     {
         SceneManager.LoadScene("Victory");
+        Destroy(FindObjectOfType<FactionHandler>());
     }
 
     public void LoadCredits()
