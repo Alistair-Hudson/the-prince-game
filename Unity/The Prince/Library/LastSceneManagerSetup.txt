@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/Playable Scenes/Fund Law Enforcement.unity
+- path: Assets/Scenes/Playable Scenes/Festival.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
